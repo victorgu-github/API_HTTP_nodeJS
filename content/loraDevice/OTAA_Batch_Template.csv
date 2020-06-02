@@ -1,0 +1,4 @@
+Required,Required,Optional,Optional,Optional,Optional,Optional,Optional,Optional
+DevEUI,Name,Description,AppKey,AppEUI,RefLat,RefLon,RefAlt,MulticastAddr
+AAAAAAAAAAAAAAAC,Calgary test,OTAA test node 1,863E90167EEA854DB56F77DC53027A8C,D1BA703ADC296DD9,31,114,21,BE57186E
+AAAAAAAAAAAAAAAD,Calgary test,OTAA test node 2,863E90167EEA854DB56F77DC53027A8C,D1BA703ADC296DD9,31,114,21,BE57186E

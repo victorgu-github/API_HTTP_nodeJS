@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Web API Index</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/css/bootstrap.min.css" integrity="sha384-rwoIResjU2yc3z8GV/NPeZWAv56rSmLldC3R/AZzGRnGxQQKnKkoFVhFQhNUwEyJ" crossorigin="anonymous">
+    <script src="https://code.jquery.com/jquery-3.2.1.min.js" integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/js/bootstrap.min.js" integrity="sha384-vBWWzlZJ8ea9aCX4pEW3rVHjgjt7zpkNpZk+02D9phzyeVkE+jo0ieGizqPLForn" crossorigin="anonymous"></script>
+    <style media="screen" type="text/css">
+        label { float: right; color: #AAA }
+        .table {
+            border: 0.05em solid #BBB;
+        }
+        .table-bordered > thead > tr > th,
+        .table-bordered > tbody > tr > th,
+        .table-bordered > tfoot > tr > th,
+        .table-bordered > thead > tr > td,
+        .table-bordered > tbody > tr > td,
+        .table-bordered > tfoot > tr > td {
+            border: 0.05em solid #BBB;
+        }
+        pre{
+            white-space: pre-wrap;
+        }
+        .hiddenRow {
+            padding: 0 !important;
+        }
+    </style>
+</head>
+<body>
+	<section class="api-index-title-bar" id="about">
+        
+        <br><br>
+        
+        <div class="container" style="width: 1200px;">
+            <div class="row">
+                <div style="padding: 2em;" class="col-lg-12 text-center jumbotron">
+                    <h1>Web API <%= viewInfo.webApiVersion %></h1>
+                    <h5>Release Version: <%= viewInfo.releaseVersion %></h5>
+                    <br>
+                    <h3>Environment: <%= viewInfo.environment %></h3>
+                    <h5>HTTP Port: <%= viewInfo.portNum %></h5>
+                    <h5>HTTPS Port: <%= viewInfo.httpsPort %></h5>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <div id="main-container" class="container-fluid">
+        <div class="container" style="float: none; margin: 0 auto; padding: 0;">
+            <div class="row">
+                <div class="col-md-12" style="padding-left: 0; padding-right: 0;">
+                    <div class="container" style="padding-left: 0; max-width: 1000px;">
+                        <% for(category in viewInfo.webServices) { %>
+                        <div style="margin-bottom: 2em;">
+                            <div class="row">
+                                <h1 style="margin-bottom: 0.5em;" class="text-left"><%= category %>:</h1>
+                            </div>
+                            <% if (viewInfo.categoriesWithDevType.includes(category)) { %>
+                            <p><strong>Available device types:</strong> <code><%= viewInfo.devTypesInThisEnvironment %></code></p>
+                            <% } %>
+                            
+                            <table class="table table-sm table-bordered table-striped table-hover" style="table-layout: fixed; word-wrap: break-word; border-collapse:collapse;">
+                                <thead style="background-color: #CCC;">
+                                    <tr>
+                                        <th style="width: 8%">Type</th>
+                                        <th>URL</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <% for (webServ in viewInfo.webServices[category]) { %>
+                                    <% let accordionID = 'accordion_' + viewInfo.webServices[category][webServ].method + '_' + viewInfo.webServices[category][webServ].url.replace(/\//gi, '_').replace(/:/gi, '_'); %>
+                                    <% let key = viewInfo.webServices[category][webServ].key; %>
+                                    <% let expand = (viewInfo.webServices[category][webServ].paramsStr.length > 0 || viewInfo.urlExamples[key] !== undefined); %>
+                                    <tr data-toggle="collapse" data-target="#<%= accordionID %>">
+                                        <td><%= viewInfo.webServices[category][webServ].method %></td>
+                                        <% let hasUrlExamples = (viewInfo.urlExamples[key] !== undefined); %>
+                                        <% let numEx = ((hasUrlExamples) ? viewInfo.urlExamples[key].length : 0); %>
+                                        <td><%= viewInfo.webServices[category][webServ].url %><% if (viewInfo.webServices[category][webServ].paramsStr.length > 0) { %><code class="font-weight-bold" style="padding-left: 0em;"><%= viewInfo.webServices[category][webServ].paramsStr %></code><% } %><% if (hasUrlExamples) { %><label style="margin-bottom: 0em;"><%= numEx %> Example<%= (numEx > 1) ? 's' : '' %></label><% } %></td>
+                                    </tr>
+                                    <tr>
+                                        <td colspan="2" class="hiddenRow">
+                                            <div <% if (expand) { %> id="<%= accordionID %>" <% } %> class="collapse" style="-webkit-transition: height 0s ease; -o-transition: height 0s ease; transition: height 0s ease;">
+                                                <div class="card">
+                                                    <div class="card-block">
+                                                        <% if (viewInfo.webServices[category][webServ].combinedParams.length > 0) { %>
+                                                        <h5><strong>URL Parameters</strong></h5>
+                                                        <table class="table table-sm table-bordered table-striped table-hover" style="table-layout: fixed; word-wrap: break-word; border-collapse:collapse;">
+                                                            <thead style="background-color: #CCC;">
+                                                                <tr>
+                                                                    <th style="width: 22%">Parameter Name</th>
+                                                                    <th style="width: 51%">Data Format</th>
+                                                                    <th style="width: 11%">Is Required</th>
+                                                                    <th>Multiple Allowed</th>
+                                                                </tr>
+                                                            </thead>
+                                                            <tbody>
+                                                                <% for (param in viewInfo.webServices[category][webServ].combinedParams) { %>
+                                                                <tr>
+                                                                    <td><code><%= viewInfo.webServices[category][webServ].combinedParams[param].paramName %></code></td>
+                                                                    <td><%= viewInfo.webServices[category][webServ].combinedParams[param].criteria %></td>
+                                                                    <td><%= viewInfo.webServices[category][webServ].combinedParams[param].isRequired %></td>
+                                                                    <td><%= viewInfo.webServices[category][webServ].combinedParams[param].multipleAllowed %></td>
+                                                                </tr>
+                                                                <% } %>
+                                                            </tbody>
+                                                        </table>
+                                                        <% } %>
+                                                        <% if (viewInfo.blurbs[key] !== undefined) { %>
+                                                        <p><%= viewInfo.blurbs[key] %></p>
+                                                        <% } %>
+                                                        <% if (viewInfo.urlExamples[key] !== undefined) { %>
+                                                        <h5><strong>Example URLs</strong></h5>
+                                                        <ul>
+                                                            <% for (url in viewInfo.urlExamples[viewInfo.webServices[category][webServ].key]) { %>
+                                                            <li><code><%= viewInfo.protocol + ':' + viewInfo.portNum + viewInfo.apiPrefix + viewInfo.urlExamples[viewInfo.webServices[category][webServ].key][url] %></code></li>
+                                                            <% } %>
+                                                        </ul>
+                                                        <% } %>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                    <% } %>
+                                </tbody>
+                            </table>
+                        </div>
+                        <% } %>
+                        
+                        <br>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <br>
+        <br>
+        <br>
+        <br>
+        <br>
+        
+    </div>
+
+    <br>
+
+</body>
+</html>
