@@ -27,7 +27,7 @@
         "jsonwebtoken": "*",
         "mongodb": "^2.2.0",
         "mongoose": "^4.5.3",
-        "morgan": "~1.7.0",
+        "morgan": "~1.9.1",
         "mysql2": "^1.5.3",
         "passport": "*",
         "passport-jwt": "^2.0.0",
