@@ -60,6 +60,10 @@ acorn-jsx@^3.0.0:
   dependencies:
     acorn "^3.0.4"
 
+acorn-walk@^8.2.0:
+  version "8.2.0"
+  resolved "https://registry.yarnpkg.com/acorn-walk/-/acorn-walk-8.2.0.tgz#741210f2e2426454508853a2f44d0ab83b7f69c1"
+
 acorn@^1.0.1:
   version "1.2.2"
   resolved "https://registry.yarnpkg.com/acorn/-/acorn-1.2.2.tgz#c8ce27de0acc76d896d2b1fad3df588d9e82f014"
@@ -75,6 +79,10 @@ acorn@^3.0.4:
 acorn@^5.4.0:
   version "5.4.1"
   resolved "https://registry.yarnpkg.com/acorn/-/acorn-5.4.1.tgz#fdc58d9d17f4a4e98d102ded826a9b9759125102"
+
+acorn@^8.7.0:
+  version "8.7.0"
+  resolved "https://registry.yarnpkg.com/acorn/-/acorn-8.7.0.tgz#90951fde0f8f09df93549481e5fc141445b791cf"
 
 affine-hull@^1.0.0:
   version "1.0.0"
@@ -2911,9 +2919,12 @@ vary@~1.0.1:
   version "1.0.1"
   resolved "https://registry.yarnpkg.com/vary/-/vary-1.0.1.tgz#99e4981566a286118dfb2b817357df7993376d10"
 
-vm2@^3.6.0:
-  version "3.6.0"
-  resolved "https://registry.yarnpkg.com/vm2/-/vm2-3.6.0.tgz#a6e6370c57e6edd77decfb7b1ad64fc87dbf2d4e"
+vm2@^3.9.6:
+  version "3.9.6"
+  resolved "https://registry.yarnpkg.com/vm2/-/vm2-3.9.6.tgz#2f9b2fd0d82802dcd872e1011869ba8ae6b74778"
+  dependencies:
+    acorn "^8.7.0"
+    acorn-walk "^8.2.0"
 
 void-elements@~2.0.1:
   version "2.0.1"
