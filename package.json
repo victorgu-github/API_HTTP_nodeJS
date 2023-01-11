@@ -18,7 +18,7 @@
         "cors": "*",
         "csv-write-stream": "^2.0.0",
         "csvtojson": "^1.1.9",
-        "debug": "^2.2.0",
+        "debug": "^3.1.0",
         "ejs": "^2.5.6",
         "eslint": "^4.17.0",
         "express": "~4.13.4",
